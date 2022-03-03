@@ -1,0 +1,111 @@
+-- AULA 3: Criando Filtros no SQL
+
+SELECT * FROM produtos;
+
+-- Exemplo 1. Mostre apenas os produtos com preços iguais ou maiores que R$1.800.
+
+SELECT *
+FROM produtos
+WHERE Preco_unit >= 1800;
+
+-- Exemplo 2. Mostre apenas os produtos com preços iguais a R$3.100.alter
+
+SELECT *
+FROM produtos
+WHERE Preco_unit = 3100;
+
+-- Exemplo 3. Mostre apenas os produtos da marca DELL
+
+SELECT *
+FROM produtos
+WHERE Marca_produto = 'DELL';
+
+-- Exemplo 4. Mostre apenas os pedidos feitos no 03/01/2019.
+
+SELECT *
+FROM pedidos
+WHERE data_venda = '2019-01-03';
+
+-- Exemplo 5. Mostre apenas os clientes SOLTEIROS e do sexo MASCULINO.
+
+SELECT *
+FROM clientes
+WHERE estado_civil = 'S' AND sexo = 'M';
+
+-- Exemplo 6. Mostrar os proutos da marca DELL OU SANSUNG
+
+Select *
+FROM produtos
+WHERE marca_produto = 'DELL' OR marca_produto = 'SAMSUNG';
+
+
+
+-- AULA 04
+-- COUNT, COUNT (*), COUNT(DISTINCT)
+
+-- AULA 05
+
+-- EXEMPLO 1. 
+-- Utilize o group by para criar uma consulta e descobrir o total de clientes por sexo
+
+SELECT
+	sexo,
+	COUNT(*) AS 'Qtd. Clientes'
+FROM clientes
+GROUP BY sexo;
+
+
+-- Ex 02. a) Faça uma consulta à tabela de produtos p retornar o total de produtos por marca.
+
+SELECT * FROM produtos;
+
+SELECT 
+	marca_produto,
+    count(*)
+FROM produtos
+GROUP BY marca_produto;
+
+-- b) Filtrar cujo grupo tenha mais que 2 registros:
+
+SELECT 
+	marca_produto,
+    count(*) AS 'QTD'
+FROM produtos
+GROUP BY marca_produto
+HAVING QTD >= 2;
+
+    
+
+
+
+-- EX3. Faça uma consulta à tabela de PEDIDOS e descubra a RECEITA TOTAL e CUSTO TOTAL por ID_LOJA.alter
+
+SELECT * FROM pedidos;
+
+SELECT 
+	ID_Loja AS 'ID Loja',
+    SUM(receita_venda) AS 'Receita Total',
+    SUM(custo_venda) AS 'Custo Total'
+FROM pedidos
+GROUP BY ID_Loja;
+
+
+-- Aula 06:
+-- JOIN NO SQL
+
+-- Ex 1: Faça uma consulta que tenha como resultado todas as colunas da tabela de pedidos e as colunas Loja, Gerente e Telefone.alter
+
+SELECT * FROM pedidos;
+SELECT * FROM lojas;
+
+SELECT
+	pedidos.*,
+    lojas.Loja,
+    lojas.Gerente,
+    lojas.Telefone
+FROM pedidos
+INNER JOIN lojas
+	ON pedidos.ID_Loja = lojas.ID_Loja;
+  
+  
+  
